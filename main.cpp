@@ -2,11 +2,11 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <chrono>
 #include "ball.h"
 #include "engine.h"
 #include "Force.h"
-#include "report.h"
+#include "SimulationReport.h"
+#include "timeTracker.h"
 using namespace std;
 
 
@@ -15,16 +15,12 @@ int main()
     // window objects 
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "ballPhysics");
 
-    //Time objects
-    sf::Clock clock;
-    int timeSample = 0;
-
-
+    //Stores balls
     std::vector<Ball> balls;
 
+    SimulationReport report;
 
-    Engine engine;
-
+    //create then stores balls
     Ball ball2(33.f, sf::Color::Green, { 300, 200 }, { 0.f, 0.f });
     balls.push_back(ball2);
     Ball ball1(25.f, sf::Color::Red, {50, 50}, {0.f, 0.f});
@@ -36,12 +32,17 @@ int main()
     Ball ball5(57.3f, sf::Color::Magenta, {346, 52}, {0.f, 0.f});
     balls.push_back(ball5);
 
+    //generates engine
+    Engine engine;
+
+    //dt clock
+    sf::Clock clock;
+
+    //Force struct earth
     Earth earth{ {0.f, 200.f} };
 
-
-    Report report;
-
-    report.snapShot(balls, timeSample);
+    timeTracker tracker(1, balls, report);
+    tracker.start();
 
     while (window.isOpen()){
 
@@ -76,9 +77,8 @@ int main()
 
 
     }
-   
-   
-    
+    tracker.stop();
+    report.closeReport();
     return 0;
 }
 

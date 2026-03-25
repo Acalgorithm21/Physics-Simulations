@@ -11,7 +11,8 @@ find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)
 add_executable(MySFMLApp main.cpp
         collisions.cpp
         collisions.h
-        report.h)
+        report.h
+        "timeTracker .h")
 
 # Link SFML
 target_link_libraries(MySFMLApp

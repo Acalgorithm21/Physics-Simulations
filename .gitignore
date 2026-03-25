@@ -25,3 +25,17 @@ Release/
 
 # SFML DLLs (if copied into project)
 *.dll
+
+# IDE files
+.idea/
+*.iml
+
+# XML files (optional)
+*.xml
+
+# Mac junk
+.DS_Store
+
+# Build
+cmake-build-*/
+build/

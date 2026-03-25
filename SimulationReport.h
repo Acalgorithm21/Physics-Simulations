@@ -1,19 +1,15 @@
+#pragma once
+
 #include <fstream>
 #include "ball.h"
 
-class Report {
+class SimulationReport {
 public:
     std::ofstream reportFile;
 
-    Report() : reportFile("positionReport.csv"){
+    SimulationReport() : reportFile("positionReport.csv"){
         if (!reportFile.is_open()) {
             throw std::runtime_error("Could not open report file");
-        }
-    }
-
-    ~Report() {
-        if (reportFile.is_open()) {
-            reportFile.close();
         }
     }
 
@@ -29,6 +25,11 @@ public:
         }
 
     };
+
+    void closeReport() {
+        reportFile.close();
+    };
+
 
 private:
     //This function writes the data to the csv file. A helper function of snapshot.
